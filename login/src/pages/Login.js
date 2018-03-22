@@ -10,9 +10,7 @@ import Logo from '../components/Logo';
 import Form from '../components/Form';
 
 import {Actions} from 'react-native-router-flux';
-
-
-
+import * as firebase from 'firebase';
 
 export default class Login extends React.Component {
 
@@ -31,7 +29,7 @@ export default class Login extends React.Component {
     LoginUser(email, password){
 
         try {
-            firebase.auth().signInWithEmailAndPassword(email,password).then(function (user) {
+            firebase.auth().signInWithEmailAndPassword(email, password).then(function (user) {
                 console.log(user)
                 
             })
