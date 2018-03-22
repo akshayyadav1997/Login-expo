@@ -5,9 +5,9 @@ import {
 } from 'react-native';
 
 
+import * as firebase from 'firebase';
 
 import Routes from './src/Routes';
-import * as firebase from "firebase";
 
 const config = {
     apiKey: "AIzaSyCFO8yZNMOl80GSa7mKpAvYtf4IBc2wQFc",
