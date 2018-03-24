@@ -44,7 +44,7 @@ export default class Login extends React.Component {
                 </TouchableOpacity>
 
                 <View style={styles.signupTextCont}>
-                    <Text style={styles.signupText}>Dont have an account yet?</Text>
+                    <Text style={styles.signupText}>New User?</Text>
                     <TouchableOpacity onPress={this.signup}><Text style={styles.signupButton}> Signup</Text></TouchableOpacity>
                 </View>
             </View>
