@@ -3,10 +3,7 @@ import {
     StyleSheet,
     View,
 } from 'react-native';
-
-
 import * as firebase from 'firebase';
-
 import Routes from './src/Routes';
 
 const config = {
@@ -19,26 +16,24 @@ const config = {
 };
 
 
-
+firebase.initializeApp(config);
 export default class App extends React.Component {
 
-    componentWillMount(){
-
-        firebase.initializeApp(config);
+    componentWillMount() {
 
     }
 
     render() {
         return (
             <View style={styles.container}>
-                <Routes/>
+                <Routes />
             </View>
         );
     }
 }
 
 const styles = StyleSheet.create({
-    container : {
+    container: {
         flex: 1,
     }
 });
