@@ -6,55 +6,27 @@ import {
     TextInput,
     TouchableOpacity
 } from 'react-native';
-import * as firebase from 'firebase';
 
-//
-// var config = {
-//     apiKey: "AIzaSyCFO8yZNMOl80GSa7mKpAvYtf4IBc2wQFc",
-//     authDomain: "login-11519.firebaseapp.com",
-//     databaseURL: "https://login-11519.firebaseio.com",
-//     projectId: "login-11519",
-//     storageBucket: "",
-//     messagingSenderId: "520734790523"
-// };
-// firebase.initializeApp(config);
-
-
-export default class Logo extends React.Component{
-
-
-        state = {
-            email: '',
-            password: ''
-        };
-
-
-
-    render(){
-        return(
-            <View style={styles.container}>
-                <TextInput style={styles.inputBox}
+        const Form = ({ value, placeholder, keyboardType, secureTextEntry, onChangeText }) => {
+          const { container, inputBox } = styles;
+        return (
+            <View style={container}>
+                <TextInput
+                           style={inputBox}
                            underlineColorAndroid='rgba(0,0,0,0)'
-                           placeholder="Email"
-                           onChangeText={(email) => this.setState({email})}
-                           placeholderTextColor = "#ffffff"
+                           placeholder={placeholder}
+                           onChangeText={onChangeText}
+                           placeholderTextColor="#ffffff"
                            selectionColor="#fff"
-                           keyboardType="email-address"
-                           onSubmitEditing={()=> this.password.focus()}
-                />
-                <TextInput style={styles.inputBox}
-                           underlineColorAndroid='rgba(0,0,0,0)'
-                           placeholder="Password"
-                           onChangeText={(password) => this.setState({password})}
-                           secureTextEntry={true}
-                           placeholderTextColor = "#ffffff"
-                           ref={(input) => this.password = input}
+                           value={value}
+                           keyboardType={keyboardType}
+                           secureTextEntry={secureTextEntry}
+
                 />
 
             </View>
-        )
-    }
-}
+        );
+};
 
 const styles = StyleSheet.create({
     container : {
@@ -75,3 +47,4 @@ const styles = StyleSheet.create({
 
 
 });
+export default Form;
