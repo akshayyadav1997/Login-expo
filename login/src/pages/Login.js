@@ -5,66 +5,73 @@ import {
     View,
     TouchableOpacity
 } from 'react-native';
-
+import * as firebase from 'firebase';
 import Logo from '../components/Logo';
 import Form from '../components/Form';
 
 import {Actions} from 'react-native-router-flux';
 
 
-
-
 export default class Login extends React.Component {
-
-
-
 
     state = {
             email: '',
             password: '',
         };
 
-
-
-
-
-    LoginUser(email, password){
-
-        try {
-            firebase.auth().signInWithEmailAndPassword(email,password).then(function (user) {
-                console.log(user)
-                
-            })
-
-        }
-        catch(error){
-            console.log(error.toString())
-        }
-
-    }
-
-    signup() {
-        Actions.signup()
-    }
-
-
-
     render() {
         return(
             <View style={styles.container}>
                 <Logo/>
-                <Form/>
-                <TouchableOpacity style={styles.button} onPress={this.LoginUser(this.state.email,this.state.password)} >
+                <Form
+                    placeholder="Email Address"
+                    value={this.state.email}
+                    onChangeText={email => this.setState({ email })}
+                    keyboardType="email-address"
+                    secureTextEntry={false}
+
+                />
+                <Form
+                    placeholder="Password"
+                    value={this.state.password}
+                    onChangeText={password => this.setState({ password })}
+                    keyboardType="default"
+                    secureTextEntry
+
+                />
+                <TouchableOpacity style={styles.button} onPress={this.LoginUser.bind(this)} >
                     <Text style={styles.buttonText}>Login</Text>
                 </TouchableOpacity>
 
                 <View style={styles.signupTextCont}>
-                    <Text style={styles.signupText}>Don't have an account yet?</Text>
+                    <Text style={styles.signupText}>New User?</Text>
                     <TouchableOpacity onPress={this.signup}><Text style={styles.signupButton}> Signup</Text></TouchableOpacity>
                 </View>
             </View>
         )
     }
+
+
+
+        LoginUser(){
+
+            try {
+                firebase.auth().signInWithEmailAndPassword(this.state.email.trim(), this.state.password).then(function (user) {
+                    console.log(user)
+
+                })
+
+            }
+            catch(error){
+                console.log(error.toString())
+            }
+
+        }
+
+        signup() {
+            Actions.signup()
+        }
+
 }
 const styles = StyleSheet.create({
     container : {
