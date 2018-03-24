@@ -5,7 +5,7 @@ import {
     View,
     TouchableOpacity,
 } from 'react-native';
-
+import * as firebase from 'firebase';
 import Logo from '../components/Logo';
 import Form from '../components/Form';
 
@@ -15,48 +15,33 @@ import {Actions} from 'react-native-router-flux';
 export default class Signup extends React.Component {
 
 
-
-    state = {
-            email: '',
-            password: '',
-        };
-
-
-    signUpUser = (email, password) => {
-
-        try {
-
-            if (this.state.password.length<6){
-                alert("Please enter atleast 6 characters")
-                return;
-            }
-
-            firebase.auth().createUserWithEmailAndPassword(email,password)
-            //     .then(() => {
-            //         ToastAndroid.show("signup done ...",ToastAndroid.SHORT);
-            //     })
-            // ;
-
-        }
-        catch(error){
-            console.log(error.toString());
-        }
-
-    };
-
-
-    goBack() {
-        Actions.pop();
-    };
-
+      state = {
+              email: '',
+              password: '',
+          };
 
 
     render() {
         return(
             <View style={styles.container}>
                 <Logo/>
-                <Form/>
-                <TouchableOpacity style={styles.button} onPress={this.signUpUser(this.state.email,this.state.password)} >
+                <Form
+                    placeholder="Email Address"
+                    value={this.state.email}
+                    onChangeText={email => this.setState({ email })}
+                    keyboardType="email-address"
+                    secureTextEntry={false}
+
+                />
+                <Form
+                    placeholder="Password"
+                    value={this.state.password}
+                    onChangeText={password => this.setState({ password })}
+                    keyboardType="default"
+                    secureTextEntry
+
+                />
+                <TouchableOpacity style={styles.button} onPress={this.signUpUser.bind(this)} >
                     <Text style={styles.buttonText}>Sign Up</Text>
                 </TouchableOpacity>
 
@@ -67,6 +52,43 @@ export default class Signup extends React.Component {
             </View>
         )
     }
+
+            a() {
+              console.log("success");
+            }
+            b(){
+              console.log("no");
+            }
+        signUpUser() {
+
+            try {
+
+                if (this.state.password.length<6){
+                    alert("Please enter atleast 6 characters")
+                    return;
+                }
+
+                firebase.auth().createUserWithEmailAndPassword(this.state.email.trim(), this.state.password)
+                .then(this.a.bind(this))
+                .catch(this.b.bind(this));
+                //     .then(() => {
+                //         ToastAndroid.show("signup done ...",ToastAndroid.SHORT);
+                //     })
+                // ;
+
+            }
+            catch(error){
+                console.log(error.toString());
+            }
+        };
+
+        goBack() {
+            Actions.pop();
+        };
+
+
+
+
 }
 
 const styles = StyleSheet.create({
